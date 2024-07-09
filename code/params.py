@@ -2112,12 +2112,12 @@ def get_inner_k(config_name):
     return configurations[config_name]['inner_k']
 
 
-def get_model_file_path(cv):
-    return get_file_paths(cv)['model_file']
+def get_model_file_path(cv, outer_fold, params):
+    return get_file_paths(cv, outer_fold=outer_fold, params=params)['model_file']
 
 
 def get_file_paths(cv, config_id=None, outer_fold=None, inner_fold=None, test=False, params=None):
-    cv_data_dir = cv.data_dir + '/' + params['dataset_folder'] if params is not None else ''
+    cv_data_dir = cv.data_dir + '/' + params['dataset_folder'] if params is not None and 'dataset_folder' in params else ''
     features_dir = cv.data_dir + '/features'
     model_dir = '../saved_models/'
     vis_dir = '../visualization_data/'
@@ -2127,7 +2127,7 @@ def get_file_paths(cv, config_id=None, outer_fold=None, inner_fold=None, test=Fa
     tensorboard_dir = '../tensorboard'
     embedding_dim = params["embedding_dim"] if params is not None and 'embedding_dim' in params else 0
     protein_embedding_name = params["protein_model"] if params is not None and 'protein_model' in params else ''
-    random_seed = params['random_seed'] if params is not None else None
+    random_seed = params['random_seed'] if params is not None and 'random_seed' in params else None
     return {
         'tensorboard_dir':
             file_path(tensorboard_dir),

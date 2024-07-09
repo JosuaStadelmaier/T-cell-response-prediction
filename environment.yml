@@ -1,0 +1,13 @@
+name: transfer_tcell
+channels:
+  - anaconda
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9.5
+  - pandas=1.4.1
+  - jupyterlab
+  - scikit-learn=1.0.2
+  - pytorch=1.10.2
+  - tqdm

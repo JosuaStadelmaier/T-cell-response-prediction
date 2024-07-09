@@ -1,0 +1,305 @@
+,0
+description,"Batch size 100, decay every 2 epochs, Training on human peptides"
+train_eval_frac,1
+dataset_folder,nested_cv_thesis
+mhc_class,I
+early_stopping_criterion,Human
+pep_source_train_selection,Homo sapiens
+one_allele_per_pep,False
+select_two_pep_sources,False
+select_pep_sources,All
+evaluate_pep_sources,False
+select_alleles,All
+eval_human,True
+evaluate_alleles,False
+MHC_class_eval,True
+sample_size,none
+features,OneHotPeptide
+feature_selector,peptide
+embedding_norm,none
+mhc_class_input,False
+pep_source_input,False
+allele_input,False
+separate_aa_embeddings,False
+separate_pos_embeddings,False
+allele_pos_embeddings,False
+source_pos_embeddings,False
+mhc_class_pos_embeddings,False
+positional_encoding,both
+combine_sources,False
+human_pep_weight,0
+human_domain_adapt,False
+epochs_adapt_human,0
+human_source_classifier,2-layer mlp
+human_source_hidden_dim,10
+human_source_learning_rate,0.01
+human_source_l2_reg,0
+human_pos_weight,1
+non_human_aa_embeddings,False
+adversary_input,final_activations
+train_mhc_class,I+II
+human_adv_domain_adapt,False
+source_params_only_debiasing,True
+source_adaptation_weight,0
+source_adaptation_tcell_weight,0.05
+CNN,False
+model,PeptideTransformer
+random_seed,1
+l2_reg,0
+dropout,0.2
+learning_rate,0.01
+lr_step_size,1
+lr_gamma,1.0
+early_stopping,True
+epochs,250
+embedding_dim,32
+batch_size,500
+batch_size_human,100
+eval_interval,10
+normalize_features,True
+hidden_dim,20
+protein_embeddings,False
+protein_l1_reg,0.0005
+protein_l2_reg,0
+protein_dropout,0.5
+protein_aa_embeddings,False
+protein_model,tape
+pretrain_model,True
+pretraining_epochs,100
+reuse_pretrained_model,True
+data_weighting,False
+layer_norm_transformer,False
+half_feedforward_dim,False
+mhc_presentation_feature,False
+pep_source_layer,False
+pep_source_pos_input,True
+debiasing_layer,False
+attention_allele_input,False
+attention_mhc_class_input,False
+attention_pep_source_input,False
+attention_mhc_source,False
+apply_transformer,True
+output_transform,2-layer mlp
+num_attention_layers,1
+attention_heads,16
+concat_positional_encoding,True
+default_padding,1
+ce_objective_weight,1
+allele_objective_weight,0
+source_objective_weight,0
+debiasing,False
+shortcut_learning_rate,0.05
+shortcut_epochs,20
+adversary_l2_reg,0
+evaluate_adv,False
+adv_input,tcell_last_layer_pred_simple
+debiasing_technique,adv
+adversary_learning_rate,0.01
+tcell_adversary_learning_rate,0.01
+allele_adversary_weight,0
+pep_source_adversary_weight,0
+allele_tcell_adv_weight,0
+source_tcell_adv_weight,0
+increasing_adv_weights,False
+project_gradients,False
+adv_tcell_label_input,False
+shortcut_skip_connection,False
+adversary_hidden_dim,32
+tcell_adversary_hidden_dim,10
+shortcut_hidden_dim,10
+tensorboard_dir,/Users/stadelmaier/Library/Mobile Documents/com~apple~CloudDocs/Studium/T-cell response prediction/T-cell-response-prediction/tensorboard
+tensorboard_experiment_dir,/Users/stadelmaier/Library/Mobile Documents/com~apple~CloudDocs/Studium/T-cell response prediction/T-cell-response-prediction/tensorboard/FINET_I_II_pre_I/config_saved/cv_0_seed_1_test
+valid_results_dir,/Users/stadelmaier/Library/Mobile Documents/com~apple~CloudDocs/Studium/T-cell response prediction/T-cell-response-prediction/valid_results_cv/FINET
+valid_predictions_dir,/Users/stadelmaier/Library/Mobile Documents/com~apple~CloudDocs/Studium/T-cell response prediction/T-cell-response-prediction/valid_results/FINET/config_saved
+test_results_dir,/Users/stadelmaier/Library/Mobile Documents/com~apple~CloudDocs/Studium/T-cell response prediction/T-cell-response-prediction/test_results/FINET_I_II_pre_I
+valid_results_file,/Users/stadelmaier/Library/Mobile Documents/com~apple~CloudDocs/Studium/T-cell response prediction/T-cell-response-prediction/valid_results_cv/FINET/results_saved_outer_0_inner_None.pkl
+valid_results_text_file,/Users/stadelmaier/Library/Mobile Documents/com~apple~CloudDocs/Studium/T-cell response prediction/T-cell-response-prediction/valid_results/FINET/config_saved/results_outer_0_inner_None.csv
+valid_prediction_file,/Users/stadelmaier/Library/Mobile Documents/com~apple~CloudDocs/Studium/T-cell response prediction/T-cell-response-prediction/valid_results/FINET/config_saved/predictions_outer_0_inner_None.csv
+test_results_file,/Users/stadelmaier/Library/Mobile Documents/com~apple~CloudDocs/Studium/T-cell response prediction/T-cell-response-prediction/test_results/FINET_I_II_pre_I/results_outer_0_1.pkl
+test_results_text_file,/Users/stadelmaier/Library/Mobile Documents/com~apple~CloudDocs/Studium/T-cell response prediction/T-cell-response-prediction/test_results/FINET_I_II_pre_I/results_outer_0_1.csv
+test_allele_results_file,/Users/stadelmaier/Library/Mobile Documents/com~apple~CloudDocs/Studium/T-cell response prediction/T-cell-response-prediction/test_results/FINET_I_II_pre_I/allele_results_outer_0.pkl
+test_prediction_file,/Users/stadelmaier/Library/Mobile Documents/com~apple~CloudDocs/Studium/T-cell response prediction/T-cell-response-prediction/test_results/FINET_I_II_pre_I/predictions_outer_0_1.csv
+combined_test_results_file,/Users/stadelmaier/Library/Mobile Documents/com~apple~CloudDocs/Studium/T-cell response prediction/T-cell-response-prediction/test_results/FINET_I_II_pre_I_results.csv
+pseudoseq_file,/Users/stadelmaier/Library/Mobile Documents/com~apple~CloudDocs/Studium/T-cell response prediction/T-cell-response-prediction/data/features/pseudosequences.txt
+blosum_file,/Users/stadelmaier/Library/Mobile Documents/com~apple~CloudDocs/Studium/T-cell response prediction/T-cell-response-prediction/data/features/blosum62.txt
+protein_embedding_file,/Users/stadelmaier/Library/Mobile Documents/com~apple~CloudDocs/Studium/T-cell response prediction/T-cell-response-prediction/data/features/peptides_tape.npz
+eval_file,/Users/stadelmaier/Library/Mobile Documents/com~apple~CloudDocs/Studium/T-cell response prediction/T-cell-response-prediction/model_runs/test_peptides.csv
+train_file,/Users/stadelmaier/Library/Mobile Documents/com~apple~CloudDocs/Studium/T-cell response prediction/T-cell-response-prediction/data/nested_cv_thesis/train_outer_0.csv
+saved_models_dir,/Users/stadelmaier/Library/Mobile Documents/com~apple~CloudDocs/Studium/T-cell response prediction/T-cell-response-prediction/saved_models/FINET
+visualization_dir,/Users/stadelmaier/Library/Mobile Documents/com~apple~CloudDocs/Studium/T-cell response prediction/T-cell-response-prediction/visualization_data/FINET
+visualization_data_file,/Users/stadelmaier/Library/Mobile Documents/com~apple~CloudDocs/Studium/T-cell response prediction/T-cell-response-prediction/visualization_data/FINET/data_saved
+visualization_prediction_file,/Users/stadelmaier/Library/Mobile Documents/com~apple~CloudDocs/Studium/T-cell response prediction/T-cell-response-prediction/visualization_data/FINET/prediction_scores_saved.pkl
+visualization_meta_file,/Users/stadelmaier/Library/Mobile Documents/com~apple~CloudDocs/Studium/T-cell response prediction/T-cell-response-prediction/visualization_data/FINET/meta_saved.tsv
+model_file,/Users/stadelmaier/Library/Mobile Documents/com~apple~CloudDocs/Studium/T-cell response prediction/T-cell-response-prediction/saved_models/FINET_I_II_pre_I_0_1.tar
+early_stop_epochs,223
+outer_fold,0
+test_experiment_name,FINET_I_II_pre_I
+Loss/T-cell response - Test,0.7707436084747314
+ROC AUC - MHC I+II - Human/Test,0.6458881578947366
+Count - ROC AUC - MHC I+II - Human/Test,156.0
+Skipped count - ROC AUC - MHC I+II - Human/Test,0.0
+ROC AUC - MHC I+II - Human - no defaults/Test,0.6458881578947366
+Count - ROC AUC - MHC I+II - Human - no defaults/Test,156.0
+Skipped count - ROC AUC - MHC I+II - Human - no defaults/Test,0.0
+ROC AUC - MHC I+II - MHC corrected - Human/Test,0.6352636481552375
+Count - ROC AUC - MHC I+II - MHC corrected - Human/Test,156.0
+Skipped count - ROC AUC - MHC I+II - MHC corrected - Human/Test,0.0
+ROC AUC - MHC I+II - MHC corrected - Human - no defaults/Test,0.6352636481552375
+Count - ROC AUC - MHC I+II - MHC corrected - Human - no defaults/Test,156.0
+Skipped count - ROC AUC - MHC I+II - MHC corrected - Human - no defaults/Test,0.0
+ROC AUC - MHC I+II/Test,0.6458881578947366
+Count - ROC AUC - MHC I+II/Test,156.0
+Skipped count - ROC AUC - MHC I+II/Test,0
+ROC AUC - MHC I+II - no source defaults/Test,0.6458881578947366
+Count - ROC AUC - MHC I+II - no source defaults/Test,156.0
+Skipped count - ROC AUC - MHC I+II - no source defaults/Test,0.0
+ROC AUC - MHC I+II - no MHC defaults/Test,0.6458881578947366
+Count - ROC AUC - MHC I+II - no MHC defaults/Test,156.0
+Skipped count - ROC AUC - MHC I+II - no MHC defaults/Test,0.0
+ROC AUC - MHC I+II - no MHC+source defaults/Test,0.6458881578947366
+Count - ROC AUC - MHC I+II - no MHC+source defaults/Test,156.0
+Skipped count - ROC AUC - MHC I+II - no MHC+source defaults/Test,0.0
+ROC AUC - MHC I+II - MHC corrected - no defaults/Test,0.6352636481552375
+Count - ROC AUC - MHC I+II - MHC corrected - no defaults/Test,156.0
+Skipped count - ROC AUC - MHC I+II - MHC corrected - no defaults/Test,0.0
+ROC AUC - MHC I+II - source corrected - no defaults/Test,0.6458881578947366
+Count - ROC AUC - MHC I+II - source corrected - no defaults/Test,156.0
+Skipped count - ROC AUC - MHC I+II - source corrected - no defaults/Test,0.0
+ROC AUC - MHC I+II - MHC+source corrected/Test,0.6352636481552375
+Count - ROC AUC - MHC I+II - MHC+source corrected/Test,156.0
+Skipped count - ROC AUC - MHC I+II - MHC+source corrected/Test,0
+ROC AUC - MHC I+II - MHC+source corrected - no defaults/Test,0.6352636481552375
+Count - ROC AUC - MHC I+II - MHC+source corrected - no defaults/Test,156.0
+Skipped count - ROC AUC - MHC I+II - MHC+source corrected - no defaults/Test,0.0
+ROC AUC - MHC I - Human/Test,0.6458881578947366
+Count - ROC AUC - MHC I - Human/Test,156.0
+Skipped count - ROC AUC - MHC I - Human/Test,0.0
+ROC AUC - MHC I - Human - no defaults/Test,0.6458881578947366
+Count - ROC AUC - MHC I - Human - no defaults/Test,156.0
+Skipped count - ROC AUC - MHC I - Human - no defaults/Test,0.0
+ROC AUC - MHC I - MHC corrected - Human/Test,0.6352636481552375
+Count - ROC AUC - MHC I - MHC corrected - Human/Test,156.0
+Skipped count - ROC AUC - MHC I - MHC corrected - Human/Test,0.0
+ROC AUC - MHC I - MHC corrected - Human - no defaults/Test,0.6352636481552375
+Count - ROC AUC - MHC I - MHC corrected - Human - no defaults/Test,156.0
+Skipped count - ROC AUC - MHC I - MHC corrected - Human - no defaults/Test,0.0
+ROC AUC - MHC I - Human subset/Test,0.6096883065316652
+Count - ROC AUC - MHC I - Human subset/Test,142.0
+Skipped count - ROC AUC - MHC I - Human subset/Test,0.0
+ROC AUC - MHC I - Human subset - no defaults/Test,0.6096883065316652
+Count - ROC AUC - MHC I - Human subset - no defaults/Test,142.0
+Skipped count - ROC AUC - MHC I - Human subset - no defaults/Test,0.0
+ROC AUC - MHC I - MHC corrected - Human subset/Test,0.6071956289714763
+Count - ROC AUC - MHC I - MHC corrected - Human subset/Test,142.0
+Skipped count - ROC AUC - MHC I - MHC corrected - Human subset/Test,0.0
+ROC AUC - MHC I - MHC corrected - Human subset - no defaults/Test,0.6071956289714763
+Count - ROC AUC - MHC I - MHC corrected - Human subset - no defaults/Test,142.0
+Skipped count - ROC AUC - MHC I - MHC corrected - Human subset - no defaults/Test,0.0
+ROC AUC - MHC I/Test,0.6458881578947366
+Count - ROC AUC - MHC I/Test,156.0
+Skipped count - ROC AUC - MHC I/Test,0
+ROC AUC - MHC I - no source defaults/Test,0.6458881578947366
+Count - ROC AUC - MHC I - no source defaults/Test,156.0
+Skipped count - ROC AUC - MHC I - no source defaults/Test,0.0
+ROC AUC - MHC I - no MHC defaults/Test,0.6458881578947366
+Count - ROC AUC - MHC I - no MHC defaults/Test,156.0
+Skipped count - ROC AUC - MHC I - no MHC defaults/Test,0.0
+ROC AUC - MHC I - no MHC+source defaults/Test,0.6458881578947366
+Count - ROC AUC - MHC I - no MHC+source defaults/Test,156.0
+Skipped count - ROC AUC - MHC I - no MHC+source defaults/Test,0.0
+ROC AUC - MHC I - MHC corrected - no defaults/Test,0.6352636481552375
+Count - ROC AUC - MHC I - MHC corrected - no defaults/Test,156.0
+Skipped count - ROC AUC - MHC I - MHC corrected - no defaults/Test,0.0
+ROC AUC - MHC I - source corrected - no defaults/Test,0.6458881578947366
+Count - ROC AUC - MHC I - source corrected - no defaults/Test,156.0
+Skipped count - ROC AUC - MHC I - source corrected - no defaults/Test,0.0
+ROC AUC - MHC I - MHC+source corrected/Test,0.6352636481552375
+Count - ROC AUC - MHC I - MHC+source corrected/Test,156.0
+Skipped count - ROC AUC - MHC I - MHC+source corrected/Test,0
+ROC AUC - MHC I - MHC+source corrected - no defaults/Test,0.6352636481552375
+Count - ROC AUC - MHC I - MHC+source corrected - no defaults/Test,156.0
+Skipped count - ROC AUC - MHC I - MHC+source corrected - no defaults/Test,0.0
+AP - MHC I+II - Human/Test,0.6348125958720413
+Count - AP - MHC I+II - Human/Test,156.0
+Skipped count - AP - MHC I+II - Human/Test,0.0
+AP - MHC I+II - Human - no defaults/Test,0.6348125958720413
+Count - AP - MHC I+II - Human - no defaults/Test,156.0
+Skipped count - AP - MHC I+II - Human - no defaults/Test,0.0
+AP - MHC I+II - MHC corrected - Human/Test,0.6841896465615366
+Count - AP - MHC I+II - MHC corrected - Human/Test,156.0
+Skipped count - AP - MHC I+II - MHC corrected - Human/Test,0.0
+AP - MHC I+II - MHC corrected - Human - no defaults/Test,0.6841896465615366
+Count - AP - MHC I+II - MHC corrected - Human - no defaults/Test,156.0
+Skipped count - AP - MHC I+II - MHC corrected - Human - no defaults/Test,0.0
+AP - MHC I+II/Test,0.6348125958720413
+Count - AP - MHC I+II/Test,156.0
+Skipped count - AP - MHC I+II/Test,0
+AP - MHC I+II - no source defaults/Test,0.6348125958720413
+Count - AP - MHC I+II - no source defaults/Test,156.0
+Skipped count - AP - MHC I+II - no source defaults/Test,0.0
+AP - MHC I+II - no MHC defaults/Test,0.6348125958720413
+Count - AP - MHC I+II - no MHC defaults/Test,156.0
+Skipped count - AP - MHC I+II - no MHC defaults/Test,0.0
+AP - MHC I+II - no MHC+source defaults/Test,0.6348125958720413
+Count - AP - MHC I+II - no MHC+source defaults/Test,156.0
+Skipped count - AP - MHC I+II - no MHC+source defaults/Test,0.0
+AP - MHC I+II - MHC corrected - no defaults/Test,0.6841896465615366
+Count - AP - MHC I+II - MHC corrected - no defaults/Test,156.0
+Skipped count - AP - MHC I+II - MHC corrected - no defaults/Test,0.0
+AP - MHC I+II - source corrected - no defaults/Test,0.6348125958720413
+Count - AP - MHC I+II - source corrected - no defaults/Test,156.0
+Skipped count - AP - MHC I+II - source corrected - no defaults/Test,0.0
+AP - MHC I+II - MHC+source corrected/Test,0.6841896465615366
+Count - AP - MHC I+II - MHC+source corrected/Test,156.0
+Skipped count - AP - MHC I+II - MHC+source corrected/Test,0
+AP - MHC I+II - MHC+source corrected - no defaults/Test,0.6841896465615366
+Count - AP - MHC I+II - MHC+source corrected - no defaults/Test,156.0
+Skipped count - AP - MHC I+II - MHC+source corrected - no defaults/Test,0.0
+AP - MHC I - Human/Test,0.6348125958720413
+Count - AP - MHC I - Human/Test,156.0
+Skipped count - AP - MHC I - Human/Test,0.0
+AP - MHC I - Human - no defaults/Test,0.6348125958720413
+Count - AP - MHC I - Human - no defaults/Test,156.0
+Skipped count - AP - MHC I - Human - no defaults/Test,0.0
+AP - MHC I - MHC corrected - Human/Test,0.6841896465615366
+Count - AP - MHC I - MHC corrected - Human/Test,156.0
+Skipped count - AP - MHC I - MHC corrected - Human/Test,0.0
+AP - MHC I - MHC corrected - Human - no defaults/Test,0.6841896465615366
+Count - AP - MHC I - MHC corrected - Human - no defaults/Test,156.0
+Skipped count - AP - MHC I - MHC corrected - Human - no defaults/Test,0.0
+AP - MHC I - Human subset/Test,0.6355900405767428
+Count - AP - MHC I - Human subset/Test,142.0
+Skipped count - AP - MHC I - Human subset/Test,0.0
+AP - MHC I - Human subset - no defaults/Test,0.6355900405767428
+Count - AP - MHC I - Human subset - no defaults/Test,142.0
+Skipped count - AP - MHC I - Human subset - no defaults/Test,0.0
+AP - MHC I - MHC corrected - Human subset/Test,0.6835337310400107
+Count - AP - MHC I - MHC corrected - Human subset/Test,142.0
+Skipped count - AP - MHC I - MHC corrected - Human subset/Test,0.0
+AP - MHC I - MHC corrected - Human subset - no defaults/Test,0.6835337310400107
+Count - AP - MHC I - MHC corrected - Human subset - no defaults/Test,142.0
+Skipped count - AP - MHC I - MHC corrected - Human subset - no defaults/Test,0.0
+AP - MHC I/Test,0.6348125958720413
+Count - AP - MHC I/Test,156.0
+Skipped count - AP - MHC I/Test,0
+AP - MHC I - no source defaults/Test,0.6348125958720413
+Count - AP - MHC I - no source defaults/Test,156.0
+Skipped count - AP - MHC I - no source defaults/Test,0.0
+AP - MHC I - no MHC defaults/Test,0.6348125958720413
+Count - AP - MHC I - no MHC defaults/Test,156.0
+Skipped count - AP - MHC I - no MHC defaults/Test,0.0
+AP - MHC I - no MHC+source defaults/Test,0.6348125958720413
+Count - AP - MHC I - no MHC+source defaults/Test,156.0
+Skipped count - AP - MHC I - no MHC+source defaults/Test,0.0
+AP - MHC I - MHC corrected - no defaults/Test,0.6841896465615366
+Count - AP - MHC I - MHC corrected - no defaults/Test,156.0
+Skipped count - AP - MHC I - MHC corrected - no defaults/Test,0.0
+AP - MHC I - source corrected - no defaults/Test,0.6348125958720413
+Count - AP - MHC I - source corrected - no defaults/Test,156.0
+Skipped count - AP - MHC I - source corrected - no defaults/Test,0.0
+AP - MHC I - MHC+source corrected/Test,0.6841896465615366
+Count - AP - MHC I - MHC+source corrected/Test,156.0
+Skipped count - AP - MHC I - MHC+source corrected/Test,0
+AP - MHC I - MHC+source corrected - no defaults/Test,0.6841896465615366
+Count - AP - MHC I - MHC+source corrected - no defaults/Test,156.0
+Skipped count - AP - MHC I - MHC+source corrected - no defaults/Test,0.0

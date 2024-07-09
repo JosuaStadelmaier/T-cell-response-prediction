@@ -127,7 +127,6 @@ class TcellData(object):
         dataset_dict = {'BagOfAA': BagOfAADataset,
                         'OneHotPeptide': PeptideDataset}
         TcellDataset = dataset_dict[params['features']]
-        print('train data')
 
         if self.params['pretrain_model']:
             if 'pretraining_data' in self.params and self.params['pretraining_data'] == 'selected_source':
@@ -143,7 +142,7 @@ class TcellData(object):
         else:
             base_pep_source = self.params['pep_source_train_selection']
 
-        print('B base peptide source: ', base_pep_source)
+        # print('Base peptide source: ', base_pep_source)
 
         train_data_selection = self.train_data if train_mhc_class == 'I+II'\
             else self.train_data.loc[self.train_data['MHC Class'] == train_mhc_class]
@@ -157,21 +156,19 @@ class TcellData(object):
             self.params['batch_size'] = round(len(train_data_selection) * 0.5) - 1
             print(f'Set batch size to {round(len(train_data_selection) * 0.5) - 1} since there are only {len(train_data_selection)} training examples.')
 
-        print('train data set selection size: ', len(train_data_selection))
-        print(train_data_selection['Assay Qualitative Measure'].value_counts())
-        print('eval data set size: ', len(self.eval_data))
-        print(self.eval_data['Assay Qualitative Measure'].value_counts())
+        # print('train data set selection size: ', len(train_data_selection))
+        # print(train_data_selection['Assay Qualitative Measure'].value_counts())
+        # print('eval data set size: ', len(self.eval_data))
+        # print(self.eval_data['Assay Qualitative Measure'].value_counts())
 
         train_dataset = TcellDataset(self, train_data_selection, pep_source=base_pep_source, sample=self.params['sample_size'])
         self.train_dataset_size = len(train_dataset)
         self.train_dataloader = DataLoader(train_dataset, batch_size=self.params['batch_size'], shuffle=True, drop_last=True,
                                            collate_fn=train_dataset.collate_fn)
-        print('train dataset size', len(train_dataset))
+        # print('train dataset size', len(train_dataset))
         if self.params['combine_sources'] or self.params['pretrain_model']:
-            print('train_dataset_human')
             finetune_pep_source = self.params['pep_source_train_selection'] if self.params['select_pep_sources'] == 'All' else 'all'
             train_dataset_human = TcellDataset(self, self.train_data, mhc_class=self.params['mhc_class'], pep_source=finetune_pep_source)
-            print('train_dataloader_human')
             self.train_dataloader_human = DataLoader(train_dataset_human, batch_size=self.params['batch_size_human'], shuffle=True, drop_last=True,
                                                collate_fn=train_dataset_human.collate_fn)
 
@@ -340,7 +337,7 @@ class BagOfAADataset(Dataset):
 
             # make sure that the batch size is not larger than the whole dataset
             # otherwise no training takes place because all incomplete batches are dropped
-            print(len(df))
+            # print(len(df))
             assert len(df) >= tcelldata.params['batch_size']
 
         self.collate_fn = None

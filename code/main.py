@@ -3,6 +3,7 @@ This is the main interface for training and evaluating the T-cell response model
 """
 import math
 import argparse
+import torch
 from code.experiment import Experiment
 from code.cross_validation import CrossValidation
 import code.params as cfg
@@ -29,7 +30,7 @@ parser.add_argument("--start_id", help="Start id for configuration names", type=
 parser.add_argument("-i", help="Index of configuration partition", type=int, default=0)
 parser.add_argument("-n", help="Number of parallel processes", type=int, default=1)
 parser.add_argument("-d", help="Description of the experiments", default=None)
-parser.add_argument("--select", help="Fix one parameter for the test evaluation", default=None)
+parser.add_argument("--mhc", help="Select one MHC class for the test evaluation (I or II)", default=None)
 parser.add_argument("--verbose", help="Print explanations.", action="store_true")
 parser.add_argument("--log_tensorboard", help="Write results to tensorboard", action="store_true")
 parser.add_argument("--log_file", help="Write results to files", action="store_true")
@@ -39,17 +40,12 @@ parser.add_argument("--nested_cv", help="Run all inner CV loops", action="store_
 parser.add_argument("--tensorboard_hparams", help="Add mean performance of given outer fold to tensorboard", type=int, default=None)
 parser.add_argument("--test", help="Run outer CV loop to get final test performance", action="store_true")
 parser.add_argument("--save_model", help="Save models of outer CV loop", action="store_true")
+parser.add_argument("--load_model", help="Load model for running it on --eval_data", action="store_true")
+parser.add_argument("--eval_data", help="File with peptides for evaluation using --load_model", default=None)
 parser.add_argument("--test_summary", help="Collect final test performance scores", action="store_true")
 parser.add_argument("--count_configs", help="Count the number of parameter configurations", action="store_true")
 
 args = parser.parse_args()
-
-# local runs
-if not args.server:
-    args.d = 'FINET'
-    args.config = 'transformer_pretrained_human_paper'
-    args.verbose = True
-    args.select = 'I'
 
 args.save_model = False
 args.log_tensorboard = False
@@ -57,9 +53,9 @@ args.log_tensorboard = False
 test_experiment_name = f'{args.d}'
 selection_criteria = []
 
-if args.d == 'FINET' and args.select is not None:
-    test_experiment_name = f'{args.d}_I_II_pre_{args.select}'
-    selection_criteria = [('mhc_class', args.select), ('train_mhc_class', 'I+II')]
+if args.d == 'FINET' and args.mhc is not None:
+    test_experiment_name = f'{args.d}_I_II_pre_{args.mhc}'
+    selection_criteria = [('mhc_class', args.mhc), ('train_mhc_class', 'I+II')]
 
 cv = CrossValidation(args.config, args.d, args.data, args.start_id, test_experiment_name)
 
@@ -108,3 +104,16 @@ elif args.count_configs:
     for key, value in cfg.configurations[args.config].items():
         if isinstance(value, list) and len(value) > 1:
             print(f'{key}: {value}')
+
+elif args.load_model:
+    saved_model = torch.load(cfg.get_model_file_path(cv, 0, {'random_seed': 1}))
+    params = saved_model['params']
+    # Make file paths relative, to support running the model on different systems
+    file_paths = cfg.get_file_paths(cv, 'saved', params['outer_fold'], None, test=True, params=params)
+    params_new_paths = {key: value if key not in file_paths else file_paths[key] for key, value in params.items()}
+    # Use the provided file as eval_file
+    params_new_paths['eval_file'] = cfg.file_path(args.eval_data)
+    # The test_experiment_name is used in the names of result files
+    params_new_paths['test_experiment_name'] = test_experiment_name
+    experiment = Experiment(params_new_paths, args, saved_model)
+    experiment.run_saved_model()

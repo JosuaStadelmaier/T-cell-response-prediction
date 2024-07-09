@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import pandas as pd
 from pathlib import Path
@@ -46,8 +47,8 @@ class Experiment(object):
 
         self.steps_per_epoch = self.params['lr_step_size'] * self.data.train_dataset_size // self.params['batch_size']
 
-        print('actual batch size', self.params['batch_size'])
-        print('steps per epoch', self.steps_per_epoch)
+        # print('actual batch size', self.params['batch_size'])
+        # print('steps per epoch', self.steps_per_epoch)
 
         self.optimizer = torch.optim.AdamW(self.get_params(self.model, self.params['l2_reg']), lr=self.params['learning_rate'])
         self.scheduler = torch.optim.lr_scheduler.LambdaLR(self.optimizer, lr_lambda=lambda step: self.get_lr_factor(step))
@@ -91,8 +92,8 @@ class Experiment(object):
                 print(name, parameter.numel())
                 param_count += parameter.numel()
             print(f'Number of params: {param_count}')
-            print('\nAdversary parameters:')
             if params['debiasing']:
+                print('\nAdversary parameters:')
                 for name, parameter in self.pep_source_adversary.named_parameters():
                     if not parameter.requires_grad:
                         continue
@@ -277,7 +278,7 @@ class Experiment(object):
 
         start_time = time.time()
         early_stopping_metric = cfg.get_early_stopping_metric(self.params)
-        print(early_stopping_metric)
+        # print(early_stopping_metric)
         early_stop_valid_results = {early_stopping_metric: float('-inf')}
         early_stop_train_results = {}
         early_stop_valid_results_sources = {}
@@ -441,7 +442,7 @@ class Experiment(object):
 
     def train_and_test_final_model(self, verbose=False):
         early_stopping_metric = cfg.get_early_stopping_metric(self.params)
-        print(early_stopping_metric)
+        # print(early_stopping_metric)
         early_stop_train_results = {}
         global step
         step = 0
@@ -633,3 +634,26 @@ class Experiment(object):
         self.optimizer.load_state_dict(saved_model['optimizer_state_dict'])
         self.scheduler.load_state_dict(saved_model['scheduler_state_dict'])
         # self.adversary_optimizer.load_state_dict(saved_model['adversary_optimizer_state_dict'])
+
+    def run_saved_model(self):
+        global step
+        step = 0
+        global eval_optimizer_step
+        eval_optimizer_step = 0
+
+        test_results, test_prediction_df = self.evaluate(self.data.eval_batch, self.data.eval_batch_unique,
+                                                         self.data.eval_data, 'Test', verbose=False,
+                                                         log=False, epoch=self.params['early_stop_epochs'])
+
+        if self.params['evaluate_pep_sources'] or self.params['evaluate_alleles']:
+            self.evaluate_sources(verbose=True)
+
+        input_file_dir = os.path.dirname(self.params['eval_file'])
+        input_file_name = os.path.basename(self.params['eval_file'])
+        prediction_file_path = cfg.file_path(input_file_dir, f'predictions_{self.params["test_experiment_name"]}_{input_file_name}')
+        results_file_path = cfg.file_path(input_file_dir, f'results_{self.params["test_experiment_name"]}_{input_file_name}')
+
+        results_df = pd.DataFrame([list(self.params.values()) + list(test_results.values())],
+                                  columns=list(self.params.keys()) + list(test_results.keys()))
+        results_df.T.to_csv(results_file_path)
+        test_prediction_df.to_csv(prediction_file_path)
