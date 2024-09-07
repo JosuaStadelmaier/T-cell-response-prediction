@@ -9,6 +9,13 @@ We study the prediction of T-cell response for specific given peptides, which co
 
 Using a transformer model for T-cell response prediction, we show that the danger of inflated predictive performance is not merely theoretical but occurs in practice. Consequently, we propose a domain-aware evaluation scheme. We then study different transfer learning techniques to deal with the multi-domain structure and shortcut learning. We demonstrate a per-source fine tuning approach to be effective across a wide range of peptide sources and further show that our final model outperforms existing state-of-the-art approaches for predicting T-cell responses for human peptides.
 
+## Directory contents
+- `code/`: Implementation of FINE-T. The parameters used for generating the figures are specified in `code/params.py`.
+- `notebooks/`: Jupyter Notebooks for processing the data set and generating data statistics plots and the result figures of the paper.
+- `data/`: To reproduce the cross-validation results, extract the file `data/nested_cv.tar.gz`.
+- `saved_models/`: Trained FINE-T models for MHC I and MHC II.
+- `model_runs/`: Result files from running the FINE-T model on a list of peptides, as described below.
+
 ## Usage
 
 This repository comes with the FINE-T model fine-tuned on human peptides.
