@@ -2,10 +2,12 @@
 This is the main interface for training and evaluating the T-cell response models.
 """
 import math
+import os
 import argparse
 import torch
-from code.experiment import Experiment
+from code.experiment import Experiment, Predictor
 from code.cross_validation import CrossValidation
+from code.datasets import read_peptide_file
 import code.params as cfg
 
 def print_config(config):
@@ -42,6 +44,9 @@ parser.add_argument("--test", help="Run outer CV loop to get final test performa
 parser.add_argument("--save_model", help="Save models of outer CV loop", action="store_true")
 parser.add_argument("--load_model", help="Load model for running it on --eval_data", action="store_true")
 parser.add_argument("--eval_data", help="File with peptides for evaluation using --load_model", default=None)
+parser.add_argument("--predict", help="Run a saved model on peptide sequences only, without labels or evaluation", action="store_true")
+parser.add_argument("--peptides", help="File with peptide sequences for --predict", default=None)
+parser.add_argument("--predictions_file", help="Output file for --predict", default=None)
 parser.add_argument("--test_summary", help="Collect final test performance scores", action="store_true")
 parser.add_argument("--count_configs", help="Count the number of parameter configurations", action="store_true")
 
@@ -104,6 +109,27 @@ elif args.count_configs:
     for key, value in cfg.configurations[args.config].items():
         if isinstance(value, list) and len(value) > 1:
             print(f'{key}: {value}')
+
+elif args.predict:
+    if args.mhc is None:
+        parser.error('--predict requires --mhc I or --mhc II to select the model of the corresponding MHC class.')
+    if args.peptides is None:
+        parser.error('--predict requires --peptides with a file of peptide sequences.')
+
+    saved_model = torch.load(cfg.get_model_file_path(cv, 0, {'random_seed': 1}), map_location='cpu')
+    peptide_file = cfg.file_path(args.peptides)
+    peptides = read_peptide_file(peptide_file)
+
+    predictor = Predictor(saved_model['params'], saved_model, peptides)
+    predictions_df = predictor.predict()
+
+    if args.predictions_file is not None:
+        predictions_file_path = cfg.file_path(args.predictions_file)
+    else:
+        predictions_file_path = cfg.file_path(os.path.dirname(peptide_file),
+                                              f'predictions_{test_experiment_name}_{os.path.basename(peptide_file)}')
+    predictions_df.to_csv(predictions_file_path, index=False)
+    print(f'Wrote {len(predictions_df)} predictions to {predictions_file_path}')
 
 elif args.load_model:
     saved_model = torch.load(cfg.get_model_file_path(cv, 0, {'random_seed': 1}))

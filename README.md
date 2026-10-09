@@ -29,6 +29,8 @@ conda activate transfer_tcell
 
 All commands below are run from the root directory of this repository.
 
+### Evaluating the model on labelled peptides
+
 Running the FINE-T model on a list of MHC I peptides:
  ```
 python -m code.main --load_model -d FINET --config transformer_pretrained_human_paper --mhc I --eval_data ../model_runs/test_peptides.csv
@@ -38,6 +40,22 @@ For MHC II peptides:
 python -m code.main --load_model -d FINET --config transformer_pretrained_human_paper --mhc II --eval_data ../model_runs/test_peptides.csv
  ```
 
-The list of peptides needs to have the same structure as the example `model_runs/test_peptides.csv`.
+The list of peptides needs to have the same structure as the example `model_runs/test_peptides.csv`,
+which includes the measured T-cell response, since these commands also compute accuracy metrics.
 File paths are given relative to the `code` directory.
 These commands produce two files in `model_runs` containing the predictions and various accuracy metrics.
+
+### Predicting T-cell response for peptide sequences
+
+The trained model only takes the peptide sequence as input, so predictions require nothing but
+a list of peptides. Use `--predict` to get predictions without labels and without any evaluation:
+ ```
+python -m code.main --predict -d FINET --config transformer_pretrained_human_paper --mhc I --peptides ../model_runs/my_peptides.csv
+ ```
+
+The peptide file is either a CSV file with a peptide column (`Epitope Description` or `peptide`),
+a CSV file with a single column, or a text file with one peptide per line.
+The MHC class still selects which of the two trained models is used, but it is not an input of the model.
+Peptides are restricted to the 20 standard amino acids and to a length of at most 28,
+and any other peptide is reported and skipped.
+The predictions are written next to the peptide file, or to the path given by `--predictions_file`.

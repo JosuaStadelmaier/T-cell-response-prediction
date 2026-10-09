@@ -6,7 +6,7 @@ import torch
 import torch.nn.functional as F
 from torch.utils.tensorboard import SummaryWriter
 import random
-from code.datasets import TcellData
+from code.datasets import TcellData, PeptideOnlyData
 from code.evaluation import get_evaluation_dict, get_source_evaluation_dict, get_allele_evaluation_dict
 import code.params as cfg
 from code import models
@@ -657,3 +657,46 @@ class Experiment(object):
                                   columns=list(self.params.keys()) + list(test_results.keys()))
         results_df.T.to_csv(results_file_path)
         test_prediction_df.to_csv(prediction_file_path)
+
+
+class Predictor(object):
+    """
+    Runs a saved model on peptide sequences alone, without labels and without evaluation.
+
+    In contrast to Experiment, this class neither loads training data nor builds optimizers,
+    adversaries or evaluation batches, because none of them are needed for predictions.
+    """
+    def __init__(self, params, saved_model, peptides):
+        self.params = params
+
+        if params['model'] != 'PeptideTransformer':
+            raise ValueError(f'Predictions without labels are only supported for PeptideTransformer, '
+                             f'but the saved model is a {params["model"]} model.')
+        if params['mhc_presentation_feature']:
+            raise ValueError('The saved model uses MHC presentation scores as an additional input, '
+                             'so peptide sequences alone are not sufficient for predictions.')
+
+        self.data = PeptideOnlyData(params, peptides)
+        self.model = models.PeptideTransformer(params, self.data)
+        self.model.load_state_dict(saved_model['model_state_dict'])
+        self.model.eval()
+
+        for peptide, reason in self.data.skipped_peptides:
+            print(f'Skipping peptide {peptide}: {reason}')
+
+    def predict(self, batch_size=500):
+        """
+        Computes T-cell response predictions for the peptides of self.data.
+        :param batch_size: number of peptides per forward pass
+        :return: DataFrame with the peptides and their predictions
+        """
+        peptides = self.data.peptides
+        predictions = []
+        with torch.no_grad():
+            for batch_start in range(0, len(peptides), batch_size):
+                batch = self.data.get_batch(peptides[batch_start:batch_start + batch_size])
+                batch_predictions, _, _ = self.model(batch)
+                predictions.append(torch.sigmoid(batch_predictions[:, 0]))
+
+        return pd.DataFrame({'Epitope Description': peptides,
+                             'Prediction': torch.cat(predictions).numpy()})
