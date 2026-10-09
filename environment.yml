@@ -10,4 +10,7 @@ dependencies:
   - jupyterlab
   - scikit-learn=1.0.2
   - pytorch=1.10.2
+  - tensorboard
+  # torch 1.10 uses distutils.version, which setuptools removed in version 59
+  - setuptools<59
   - tqdm

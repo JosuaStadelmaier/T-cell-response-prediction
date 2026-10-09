@@ -24,16 +24,20 @@ The MHC I and MHC II versions of this model are stored in `saved_models/`.
 Creating a conda environment with the needed packages:
  ```
 conda env create -f environment.yml
+conda activate transfer_tcell
  ```
+
+All commands below are run from the root directory of this repository.
 
 Running the FINE-T model on a list of MHC I peptides:
  ```
-python main.py --load_model -d FINET --config transformer_pretrained_human_paper --mhc I --eval_data ../model_runs/test_peptides.csv
+python -m code.main --load_model -d FINET --config transformer_pretrained_human_paper --mhc I --eval_data ../model_runs/test_peptides.csv
  ```
 For MHC II peptides:
  ```
-python main.py --load_model -d FINET --config transformer_pretrained_human_paper --mhc II --eval_data ../model_runs/test_peptides.csv
+python -m code.main --load_model -d FINET --config transformer_pretrained_human_paper --mhc II --eval_data ../model_runs/test_peptides.csv
  ```
 
 The list of peptides needs to have the same structure as the example `model_runs/test_peptides.csv`.
+File paths are given relative to the `code` directory.
 These commands produce two files in `model_runs` containing the predictions and various accuracy metrics.
