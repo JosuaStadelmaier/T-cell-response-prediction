@@ -29,7 +29,7 @@ conda activate transfer_tcell
 
 All commands below are run from the root directory of this repository.
 
-### Evaluating the model on labelled peptides
+### Running and evaluating the model on labelled peptides
 
 Running the FINE-T model on a list of MHC I peptides:
  ```
@@ -47,15 +47,25 @@ These commands produce two files in `model_runs` containing the predictions and 
 
 ### Predicting T-cell response for peptide sequences
 
-The trained model only takes the peptide sequence as input, so predictions require nothing but
-a list of peptides. Use `--predict` to get predictions without labels and without any evaluation:
+When using `--predict`, the trained model only takes the peptide sequence as input, so predictions require nothing but
+a list of peptides. No evaluation is performed.
  ```
-python -m code.main --predict -d FINET --config transformer_pretrained_human_paper --mhc I --peptides ../model_runs/my_peptides.csv
+python -m code.main --predict -d FINET --config transformer_pretrained_human_paper --mhc I --peptides ../model_runs/test_peptides_mhc_I_human.csv
  ```
 
 The peptide file is either a CSV file with a peptide column (`Epitope Description` or `peptide`),
 a CSV file with a single column, or a text file with one peptide per line.
-The MHC class still selects which of the two trained models is used, but it is not an input of the model.
-Peptides are restricted to the 20 standard amino acids and to a length of at most 28,
-and any other peptide is reported and skipped.
+
+In this setting, you need to make sure to only use peptides as input that match the MHC class and peptide source of the pretrained model. Here, we provided only MHC I peptides from human proteins as input.
 The predictions are written next to the peptide file, or to the path given by `--predictions_file`.
+The predictions of the command above are provided as a reference in
+`model_runs/predictions_FINET_I_II_pre_I_test_peptides_mhc_I_human.csv`,
+which contains the same predictions as the corresponding `--load_model` command.
+
+### Peptide sequence requirements
+
+All of the commands above need peptides that consist of the 20 standard amino acids and that are
+at most 28 amino acids long, which is the longest peptide that the positional encodings of the
+model support. Peptides that contain other characters, such as `X`, and peptides that are longer
+are printed with the reason for skipping them when using `--predict`, and they are left out of
+the predictions.
