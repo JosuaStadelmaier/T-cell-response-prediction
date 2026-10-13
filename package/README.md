@@ -1,8 +1,8 @@
 # FINE-T
 
 Predict T-cell response for peptide sequences with FINE-T, the transformer model of the paper
-[Transfer Learning for T-Cell Response Prediction](https://arxiv.org/abs/2403.12117)
-by Josua Stadelmaier, Brandon Malone, and Ralf Eggeling.
+["Transfer learning for T-cell response prediction"](https://link.springer.com/article/10.1186/s12859-026-06492-2)
+by Josua Stadelmaier, Brandon Malone, and Ralf Eggeling, published in BMC Bioinformatics.
 
 FINE-T is fine tuned per peptide source, and this package provides the models for human
 peptides of MHC class I and MHC class II. The model only takes the peptide sequence as input.
@@ -58,3 +58,8 @@ pytest tests
 ## License
 
 FINE-T is licensed under the GNU Affero General Public License v3.0, see `LICENSE`.
+
+## Citation
+
+Stadelmaier, J., Malone, B. & Eggeling, R. Transfer learning for T-cell response prediction.
+*BMC Bioinformatics* **27**, 124 (2026). <https://link.springer.com/article/10.1186/s12859-026-06492-2>

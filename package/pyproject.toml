@@ -39,7 +39,7 @@ test = [
 
 [project.urls]
 Homepage = "https://github.com/JosuaStadelmaier/T-cell-response-prediction"
-Paper = "https://arxiv.org/abs/2403.12117"
+Paper = "https://link.springer.com/article/10.1186/s12859-026-06492-2"
 
 [project.scripts]
 fine-t = "finet.cli:main"
