@@ -22,19 +22,16 @@ Using a transformer model for T-cell response prediction, we show that the dange
 This repository comes with the FINE-T model fine-tuned on human peptides.
 The MHC I and MHC II versions of this model are stored in `saved_models/`.
 
-There are two ways of using these models. The `fine-t-cell` pip package predicts T-cell response
-for peptide sequences, which is all that the model needs as input, and it does not evaluate
-the predictions. Its source code is in `package/`.
+The `fine-t-cell` pip package predicts T-cell response for peptide sequences, which is all
+that the model needs as input, and it does not evaluate the predictions.
+Its source code is in `package/`.
  ```
-pip install fine-t-cell
-fine-t-cell --peptides model_runs/test_peptides_mhc_I_human.csv --mhc I --source human
- ```
-
-The default PyTorch packages bring the CUDA libraries for running models on a GPU, which the
-FINE-T models do not need. Installing PyTorch from its CPU index beforehand is optional and
-leaves them out:
- ```
+# optional: for faster installation without PyTorch CUDA libraries
 pip install --index-url https://download.pytorch.org/whl/cpu torch numpy
+
+pip install fine-t-cell
+
+fine-t-cell --peptides model_runs/test_peptides_mhc_I_human.csv --mhc I --source human
  ```
 
 The `--source` parameter needs to be set to `human`, since the models that are fine-tuned on
