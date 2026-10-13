@@ -11,7 +11,7 @@ the scripts of https://github.com/JosuaStadelmaier/T-cell-response-prediction.
 from finet.api import MHC_CLASSES, PEPTIDE_SOURCES, Predictor, model_file, predict
 from finet.peptides import read_peptide_file
 
-__version__ = '0.1.0'
+__version__ = '1.0'
 
 __all__ = [
     'MHC_CLASSES',

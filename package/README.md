@@ -44,3 +44,17 @@ Peptides need to consist of the 20 standard amino acids and they can be at most 
 acids long, which is the longest peptide that the positional encodings of the model support.
 Peptides that contain other characters, such as `X`, and peptides that are longer are
 printed with the reason for skipping them, and they are left out of the predictions.
+
+## Tests
+
+The tests check that the package reproduces the predictions of the repository scripts.
+They are part of the source code, so run them from a clone of the repository:
+
+```
+pip install -e .[test]
+pytest tests
+```
+
+## License
+
+FINE-T is licensed under the GNU Affero General Public License v3.0, see `LICENSE`.

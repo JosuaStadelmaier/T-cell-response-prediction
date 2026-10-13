@@ -98,3 +98,8 @@ at most 28 amino acids long, which is the longest peptide that the positional en
 model support. Peptides that contain other characters, such as `X`, and peptides that are longer
 are printed with the reason for skipping them when using `--predict`, and they are left out of
 the predictions.
+
+## License
+
+The code of this repository and the `fine-t` package are licensed under the
+GNU Affero General Public License v3.0, see `LICENSE`.

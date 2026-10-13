@@ -11,21 +11,30 @@ requires-python = ">=3.9"
 license = "AGPL-3.0-only"
 license-files = ["LICENSE"]
 authors = [
-    {name = "Josua Stadelmaier"},
-    {name = "Brandon Malone"},
-    {name = "Ralf Eggeling"},
+    {name = "Josua Stadelmaier", email = "josua.stadelmaier@gmail.com"},
 ]
 keywords = ["T-cell response", "immunogenicity", "epitope", "peptide", "MHC", "transformer"]
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Scientific/Engineering :: Bio-Informatics",
 ]
 dependencies = [
     "torch>=1.10",
     "pandas>=1.4",
     "numpy>=1.21",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest",
 ]
 
 [project.urls]
