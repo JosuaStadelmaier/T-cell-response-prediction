@@ -15,18 +15,18 @@ Using a transformer model for T-cell response prediction, we show that the dange
 - `data/`: To reproduce the cross-validation results, extract the file `data/nested_cv.tar.gz`.
 - `saved_models/`: Trained FINE-T models for MHC I and MHC II.
 - `model_runs/`: Result files from running the FINE-T model on a list of peptides, as described below.
-- `package/`: Source code of the `fine-t` pip package, which provides the predictions of FINE-T.
+- `package/`: Source code of the `fine-t-cell` pip package, which provides the predictions of FINE-T.
 
 ## Usage via pip package
 
 This repository comes with the FINE-T model fine-tuned on human peptides.
 The MHC I and MHC II versions of this model are stored in `saved_models/`.
 
-There are two ways of using these models. The `fine-t` pip package predicts T-cell response
+There are two ways of using these models. The `fine-t-cell` pip package predicts T-cell response
 for peptide sequences, which is all that the model needs as input, and it does not evaluate
 the predictions. Its source code is in `package/`.
  ```
-pip install fine-t
+pip install fine-t-cell
 fine-t --peptides model_runs/test_peptides_mhc_I_human.csv --mhc I --source human
  ```
 
@@ -101,7 +101,7 @@ the predictions.
 
 ## License
 
-The code of this repository and the `fine-t` package are licensed under the
+The code of this repository and the `fine-t-cell` package are licensed under the
 GNU Affero General Public License v3.0, see `LICENSE`.
 
 ## Citation

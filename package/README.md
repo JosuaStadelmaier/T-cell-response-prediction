@@ -15,8 +15,10 @@ scripts of the [repository](https://github.com/JosuaStadelmaier/T-cell-response-
 ## Installation
 
 ```
-pip install fine-t
+pip install fine-t-cell
 ```
+
+This provides the `fine-t` command and the `finet` Python package.
 
 ## Usage
 
