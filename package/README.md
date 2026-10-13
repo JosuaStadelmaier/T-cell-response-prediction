@@ -20,6 +20,16 @@ pip install fine-t-cell
 
 This provides the `fine-t-cell` command and the `finetcell` Python package.
 
+Installing PyTorch without CUDA support is optional. The default PyTorch packages bring the
+CUDA libraries for running models on a GPU, which the FINE-T models do not need, since they
+are small enough to run on a CPU. To leave them out, install PyTorch from its CPU index
+before installing this package:
+
+```
+pip install --index-url https://download.pytorch.org/whl/cpu torch numpy
+pip install fine-t-cell
+```
+
 ## Usage
 
 ```

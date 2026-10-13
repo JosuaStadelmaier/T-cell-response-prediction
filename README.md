@@ -30,6 +30,13 @@ pip install fine-t-cell
 fine-t-cell --peptides model_runs/test_peptides_mhc_I_human.csv --mhc I --source human
  ```
 
+The default PyTorch packages bring the CUDA libraries for running models on a GPU, which the
+FINE-T models do not need. Installing PyTorch from its CPU index beforehand is optional and
+leaves them out:
+ ```
+pip install --index-url https://download.pytorch.org/whl/cpu torch numpy
+ ```
+
 The `--source` parameter needs to be set to `human`, since the models that are fine-tuned on
 other peptide sources are not part of the package. The `--mhc` parameter selects the model of
 the MHC class of the peptides, either `I` or `II`, so provide the peptides of one MHC class

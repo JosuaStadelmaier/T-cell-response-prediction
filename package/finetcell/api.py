@@ -2,6 +2,7 @@
 Predicting T-cell response for peptide sequences with the FINE-T model.
 """
 import os
+import warnings
 
 import pandas as pd
 import torch
@@ -68,7 +69,12 @@ class Predictor(object):
         self.mhc = mhc
         self.source = source
         self.data = PeptideData(peptides)
-        self.model = models.PeptideTransformer(params, self.data)
+        with warnings.catch_warnings():
+            # The saved models do not use batch_first, which makes torch warn about the
+            # nested tensor optimization that it therefore cannot apply.
+            warnings.filterwarnings('ignore', message='.*enable_nested_tensor.*',
+                                    category=UserWarning)
+            self.model = models.PeptideTransformer(params, self.data)
         self.model.load_state_dict(saved_model['model_state_dict'])
         self.model.eval()
 
