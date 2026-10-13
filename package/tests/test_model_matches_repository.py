@@ -1,7 +1,7 @@
 """
 Tests that the model of this package is the model of the repository.
 
-finet/models.py is a copy of the model classes of code/models.py, so that the saved models
+finetcell/models.py is a copy of the model classes of code/models.py, so that the saved models
 load into the same module structure. This test fails if one of the two copies changes,
 which would silently change the predictions or break the loading of the saved models.
 """
@@ -11,7 +11,7 @@ import os
 
 import pytest
 
-PACKAGE_MODELS = os.path.join(os.path.dirname(__file__), os.pardir, 'finet', 'models.py')
+PACKAGE_MODELS = os.path.join(os.path.dirname(__file__), os.pardir, 'finetcell', 'models.py')
 REPOSITORY_MODELS = os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'code', 'models.py')
 
 SHARED_CLASSES = ['PositionalEncoding', 'TransformerEmbedding', 'LearnedPosEmbedding',

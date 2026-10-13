@@ -9,8 +9,8 @@ and Ralf Eggeling, published in BMC Bioinformatics
 Training the model and reproducing the domain-aware evaluation of the paper is done with
 the scripts of https://github.com/JosuaStadelmaier/T-cell-response-prediction.
 """
-from finet.api import MHC_CLASSES, PEPTIDE_SOURCES, Predictor, model_file, predict
-from finet.peptides import read_peptide_file
+from finetcell.api import MHC_CLASSES, PEPTIDE_SOURCES, Predictor, model_file, predict
+from finetcell.peptides import read_peptide_file
 
 __version__ = '1.0'
 

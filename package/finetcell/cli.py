@@ -4,13 +4,13 @@ Command line interface for predicting T-cell response for peptide sequences.
 import argparse
 import os
 
-from finet.api import MHC_CLASSES, PEPTIDE_SOURCES, Predictor
-from finet.peptides import read_peptide_file
+from finetcell.api import MHC_CLASSES, PEPTIDE_SOURCES, Predictor
+from finetcell.peptides import read_peptide_file
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(
-        prog='fine-t',
+        prog='fine-t-cell',
         description='Predict T-cell response for peptide sequences with the FINE-T model.')
     parser.add_argument('--peptides', required=True,
                         help='File with peptide sequences: a CSV file with a peptide column, '

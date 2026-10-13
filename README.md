@@ -27,7 +27,7 @@ for peptide sequences, which is all that the model needs as input, and it does n
 the predictions. Its source code is in `package/`.
  ```
 pip install fine-t-cell
-fine-t --peptides model_runs/test_peptides_mhc_I_human.csv --mhc I --source human
+fine-t-cell --peptides model_runs/test_peptides_mhc_I_human.csv --mhc I --source human
  ```
 
 The `--source` parameter needs to be set to `human`, since the models that are fine-tuned on
@@ -40,9 +40,9 @@ peptide per line. The predictions are written next to it, or to the path given b
 
 The package also provides the predictions in Python:
  ```python
-import finet
+import finetcell
 
-predictions = finet.predict(['GILGFVFTL', 'NLVPMVATV'], mhc='I', source='human')
+predictions = finetcell.predict(['GILGFVFTL', 'NLVPMVATV'], mhc='I', source='human')
  ```
 
 ## Usage of the repository scripts

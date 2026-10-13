@@ -42,13 +42,13 @@ Homepage = "https://github.com/JosuaStadelmaier/T-cell-response-prediction"
 Paper = "https://link.springer.com/article/10.1186/s12859-026-06492-2"
 
 [project.scripts]
-fine-t = "finet.cli:main"
+fine-t-cell = "finetcell.cli:main"
 
 [tool.setuptools]
-packages = ["finet"]
+packages = ["finetcell"]
 
 [tool.setuptools.package-data]
-finet = ["saved_models/*.tar"]
+finetcell = ["saved_models/*.tar"]
 
 [tool.setuptools.dynamic]
-version = {attr = "finet.__version__"}
+version = {attr = "finetcell.__version__"}

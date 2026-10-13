@@ -18,12 +18,12 @@ scripts of the [repository](https://github.com/JosuaStadelmaier/T-cell-response-
 pip install fine-t-cell
 ```
 
-This provides the `fine-t` command and the `finet` Python package.
+This provides the `fine-t-cell` command and the `finetcell` Python package.
 
 ## Usage
 
 ```
-fine-t --peptides peptides.csv --mhc I --source human
+fine-t-cell --peptides peptides.csv --mhc I --source human
 ```
 
 The file with the peptides is a CSV file with a peptide column (`Epitope Description` or
@@ -39,12 +39,12 @@ MHC class. So use as input the peptides of one MHC class at a time.
 From Python:
 
 ```python
-import finet
+import finetcell
 
-predictions = finet.predict(['GILGFVFTL', 'NLVPMVATV'], mhc='I', source='human')
+predictions = finetcell.predict(['GILGFVFTL', 'NLVPMVATV'], mhc='I', source='human')
 ```
 
-`finet.predict` returns a DataFrame with the peptides and their predictions.
+`finetcell.predict` returns a DataFrame with the peptides and their predictions.
 
 Peptides need to consist of the 20 standard amino acids and they can be at most 28 amino
 acids long, which is the longest peptide that the positional encodings of the model support.

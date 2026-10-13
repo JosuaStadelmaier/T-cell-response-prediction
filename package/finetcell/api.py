@@ -6,8 +6,8 @@ import os
 import pandas as pd
 import torch
 
-from finet import models
-from finet.peptides import PeptideData
+from finetcell import models
+from finetcell.peptides import PeptideData
 
 MHC_CLASSES = ('I', 'II')
 
