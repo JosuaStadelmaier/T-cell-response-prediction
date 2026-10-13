@@ -11,7 +11,7 @@ from finet.peptides import PeptideData
 
 MHC_CLASSES = ('I', 'II')
 
-# FINE-T is fine tuned per peptide source, and this package provides the human models.
+# FINE-T is fine-tuned per peptide source, and this package provides the human models.
 PEPTIDE_SOURCES = ('human',)
 
 MODEL_DIR = os.path.join(os.path.dirname(__file__), 'saved_models')
@@ -21,14 +21,14 @@ def model_file(mhc='I', source='human'):
     """
     Provides the path of a model that comes with this package.
     :param mhc: MHC class of the peptides, 'I' or 'II'
-    :param source: peptide source that the model is fine tuned on, which needs to be 'human'
+    :param source: peptide source that the model is fine-tuned on, which needs to be 'human'
     :return: path of the saved model
     """
     if mhc not in MHC_CLASSES:
         raise ValueError(f'mhc needs to be one of {MHC_CLASSES}, but it is {mhc!r}.')
     if source not in PEPTIDE_SOURCES:
         raise ValueError(f'source needs to be one of {PEPTIDE_SOURCES}, but it is {source!r}. '
-                         f'The models that are fine tuned on other peptide sources '
+                         f'The models that are fine-tuned on other peptide sources '
                          f'are not part of this package.')
     return os.path.join(MODEL_DIR, f'FINET_I_II_pre_{mhc}_0_1.tar')
 
@@ -104,7 +104,7 @@ def predict(peptides, mhc='I', source='human', batch_size=500, verbose=True):
 
     :param peptides: peptide sequence or list of peptide sequences
     :param mhc: MHC class of the peptides, 'I' or 'II'
-    :param source: peptide source that the model is fine tuned on, which needs to be 'human'
+    :param source: peptide source that the model is fine-tuned on, which needs to be 'human'
     :param batch_size: number of peptides per forward pass
     :param verbose: print the peptides that the model cannot process
     :return: DataFrame with the peptides and their predictions

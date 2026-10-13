@@ -7,7 +7,7 @@ There is also a [video poster presentation](https://youtu.be/USc7sdngFYM?si=WrV1
 ## Introduction
 We study the prediction of T-cell response for specific given peptides, which could, among other applications, be a crucial step towards the development of personalized cancer vaccines. It is a challenging task due to limited, heterogeneous training data featuring a multi-domain structure; such data entail the danger of shortcut learning, where models learn general characteristics of peptide sources, such as the source organism, rather than specific peptide characteristics associated with T-cell response.
 
-Using a transformer model for T-cell response prediction, we show that the danger of inflated predictive performance is not merely theoretical but occurs in practice. Consequently, we propose a domain-aware evaluation scheme. We then study different transfer learning techniques to deal with the multi-domain structure and shortcut learning. We demonstrate a per-source fine tuning approach to be effective across a wide range of peptide sources and further show that our final model outperforms existing state-of-the-art approaches for predicting T-cell responses for human peptides.
+Using a transformer model for T-cell response prediction, we show that the danger of inflated predictive performance is not merely theoretical but occurs in practice. Consequently, we propose a domain-aware evaluation scheme. We then study different transfer learning techniques to deal with the multi-domain structure and shortcut learning. We demonstrate a per-source fine-tuning approach to be effective across a wide range of peptide sources and further show that our final model outperforms existing state-of-the-art approaches for predicting T-cell responses for human peptides.
 
 ## Directory contents
 - `code/`: Implementation of FINE-T. The parameters used for generating the figures are specified in `code/params.py`.
@@ -30,7 +30,7 @@ pip install fine-t
 fine-t --peptides model_runs/test_peptides_mhc_I_human.csv --mhc I --source human
  ```
 
-The `--source` parameter needs to be set to `human`, since the models that are fine tuned on
+The `--source` parameter needs to be set to `human`, since the models that are fine-tuned on
 other peptide sources are not part of the package. The `--mhc` parameter selects the model of
 the MHC class of the peptides, either `I` or `II`, so provide the peptides of one MHC class
 at a time. The file with the peptides is a CSV file with a peptide column

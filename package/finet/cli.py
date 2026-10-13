@@ -18,7 +18,7 @@ def main(argv=None):
     parser.add_argument('--mhc', required=True, choices=list(MHC_CLASSES),
                         help='MHC class of the peptides')
     parser.add_argument('--source', required=True, choices=list(PEPTIDE_SOURCES),
-                        help='Peptide source that the model is fine tuned on')
+                        help='Peptide source that the model is fine-tuned on')
     parser.add_argument('--predictions_file', default=None,
                         help='Output file, by default next to the file with the peptides')
     args = parser.parse_args(argv)
