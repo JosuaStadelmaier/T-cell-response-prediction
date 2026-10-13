@@ -1,3 +1,6 @@
 __pycache__/
 *.py[cod]
 tensorboard/
+build/
+dist/
+*.egg-info/

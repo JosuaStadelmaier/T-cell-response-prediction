@@ -15,11 +15,40 @@ Using a transformer model for T-cell response prediction, we show that the dange
 - `data/`: To reproduce the cross-validation results, extract the file `data/nested_cv.tar.gz`.
 - `saved_models/`: Trained FINE-T models for MHC I and MHC II.
 - `model_runs/`: Result files from running the FINE-T model on a list of peptides, as described below.
+- `package/`: Source code of the `fine-t` pip package, which provides the predictions of FINE-T.
 
-## Usage
+## Usage via pip package
 
 This repository comes with the FINE-T model fine-tuned on human peptides.
 The MHC I and MHC II versions of this model are stored in `saved_models/`.
+
+There are two ways of using these models. The `fine-t` pip package predicts T-cell response
+for peptide sequences, which is all that the model needs as input, and it does not evaluate
+the predictions. Its source code is in `package/`.
+ ```
+pip install fine-t
+fine-t --peptides model_runs/test_peptides_mhc_I_human.csv --mhc I --source human
+ ```
+
+The `--source` parameter needs to be set to `human`, since the models that are fine tuned on
+other peptide sources are not part of the package. The `--mhc` parameter selects the model of
+the MHC class of the peptides, either `I` or `II`, so provide the peptides of one MHC class
+at a time. The file with the peptides is a CSV file with a peptide column
+(`Epitope Description` or `peptide`), a CSV file with a single column, or a text file with one
+peptide per line. The predictions are written next to it, or to the path given by
+`--predictions_file`.
+
+The package also provides the predictions in Python:
+ ```python
+import finet
+
+predictions = finet.predict(['GILGFVFTL', 'NLVPMVATV'], mhc='I', source='human')
+ ```
+
+## Usage of the repository scripts
+
+The scripts of this repository provide the training of the model and the domain-aware
+evaluation of the paper, in addition to the predictions.
 
 Creating a conda environment with the needed packages:
  ```

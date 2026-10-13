@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fine-t"
+dynamic = ["version"]
+description = "Predict T-cell response for peptide sequences with the FINE-T model"
+readme = "README.md"
+requires-python = ">=3.9"
+license = "AGPL-3.0-only"
+license-files = ["LICENSE"]
+authors = [
+    {name = "Josua Stadelmaier"},
+    {name = "Brandon Malone"},
+    {name = "Ralf Eggeling"},
+]
+keywords = ["T-cell response", "immunogenicity", "epitope", "peptide", "MHC", "transformer"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+dependencies = [
+    "torch>=1.10",
+    "pandas>=1.4",
+    "numpy>=1.21",
+]
+
+[project.urls]
+Homepage = "https://github.com/JosuaStadelmaier/T-cell-response-prediction"
+Paper = "https://arxiv.org/abs/2403.12117"
+
+[project.scripts]
+fine-t = "finet.cli:main"
+
+[tool.setuptools]
+packages = ["finet"]
+
+[tool.setuptools.package-data]
+finet = ["saved_models/*.tar"]
+
+[tool.setuptools.dynamic]
+version = {attr = "finet.__version__"}
